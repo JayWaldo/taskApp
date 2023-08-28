@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\JARED\\Desktop\\cSharp\\taskApp\\taskApp.csproj": {}
+    "C:\\Users\\JARED\\Desktop\\cSharp\\taskApp\\taskApp.csproj": {}
   },
   "projects": {
-    "c:\\Users\\JARED\\Desktop\\cSharp\\taskApp\\taskApp.csproj": {
+    "C:\\Users\\JARED\\Desktop\\cSharp\\taskApp\\taskApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\JARED\\Desktop\\cSharp\\taskApp\\taskApp.csproj",
+        "projectUniqueName": "C:\\Users\\JARED\\Desktop\\cSharp\\taskApp\\taskApp.csproj",
         "projectName": "taskApp",
-        "projectPath": "c:\\Users\\JARED\\Desktop\\cSharp\\taskApp\\taskApp.csproj",
+        "projectPath": "C:\\Users\\JARED\\Desktop\\cSharp\\taskApp\\taskApp.csproj",
         "packagesPath": "C:\\Users\\JARED\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\JARED\\Desktop\\cSharp\\taskApp\\obj\\",
+        "outputPath": "C:\\Users\\JARED\\Desktop\\cSharp\\taskApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

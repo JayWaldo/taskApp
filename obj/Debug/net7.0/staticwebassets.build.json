@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "OcS5uSzOeA5SFJVCQyl74f6WaQaXz8gBkRw8KMQrU/w=",
+  "Source": "taskApp",
+  "BasePath": "_content/taskApp",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
