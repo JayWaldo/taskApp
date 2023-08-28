@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using taskApp.Models;
+using Task = taskApp.Models.Task;
 
 namespace taskApp;
 
