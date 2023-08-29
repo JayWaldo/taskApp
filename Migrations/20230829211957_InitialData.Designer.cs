@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using taskApp;
 
@@ -11,9 +12,11 @@ using taskApp;
 namespace taskApp.Migrations
 {
     [DbContext(typeof(TaskContext))]
-    partial class TaskContextModelSnapshot : ModelSnapshot
+    [Migration("20230829211957_InitialData")]
+    partial class InitialData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,6 +42,9 @@ namespace taskApp.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<Guid>("TaskId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("CategoryId");
 
                     b.ToTable("Category", (string)null);
@@ -49,14 +55,16 @@ namespace taskApp.Migrations
                             CategoryId = new Guid("9472d245-d46c-4b17-9f4a-f3870d674b72"),
                             Description = "Home task of daily basis",
                             Importance = 15,
-                            Name = "Home"
+                            Name = "Home",
+                            TaskId = new Guid("00000000-0000-0000-0000-000000000000")
                         },
                         new
                         {
                             CategoryId = new Guid("ed937cce-c11d-4aa1-a503-49bd5075ad23"),
                             Description = "SelfCare task to improve yourself",
                             Importance = 20,
-                            Name = "SelfCare"
+                            Name = "SelfCare",
+                            TaskId = new Guid("00000000-0000-0000-0000-000000000000")
                         });
                 });
 
@@ -126,7 +134,7 @@ namespace taskApp.Migrations
                             TaskId = new Guid("87be8727-3d2e-45e7-b686-0049301f1ba9"),
                             CategoryId = new Guid("9472d245-d46c-4b17-9f4a-f3870d674b72"),
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartDate = new DateTime(2023, 8, 29, 15, 59, 24, 657, DateTimeKind.Local).AddTicks(8830),
+                            StartDate = new DateTime(2023, 8, 29, 15, 19, 56, 651, DateTimeKind.Local).AddTicks(8536),
                             TaskPriority = 1,
                             Title = "Wash the Dishes"
                         },
@@ -135,7 +143,7 @@ namespace taskApp.Migrations
                             TaskId = new Guid("a26e416a-7a3c-4caf-8613-45df7daf0908"),
                             CategoryId = new Guid("ed937cce-c11d-4aa1-a503-49bd5075ad23"),
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartDate = new DateTime(2023, 8, 29, 15, 59, 24, 657, DateTimeKind.Local).AddTicks(8872),
+                            StartDate = new DateTime(2023, 8, 29, 15, 19, 56, 651, DateTimeKind.Local).AddTicks(8582),
                             TaskPriority = 1,
                             Title = "Meditate"
                         });

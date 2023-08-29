@@ -8,7 +8,7 @@ public class TaskContext: DbContext
 {
   public DbSet<Category> Categories { get; set; }
   public DbSet<Task> Tasks { get; set; }
-  public DbSet<Goal> Objectives { get; set; }
+  public DbSet<Goal> Goals { get; set; }
   public DbSet<User> Users { get; set; }
   public DbSet<UserTask> UserTasks { get; set; }
 
@@ -16,6 +16,9 @@ public class TaskContext: DbContext
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
+    List<Category> categoriesInit = new List<Category>();
+    categoriesInit.Add(new Category() {CategoryId = Guid.Parse("9472d245-d46c-4b17-9f4a-f3870d674b72"), Name = "Home", Description = "Home task of daily basis", Importance = 15});
+    categoriesInit.Add(new Category() {CategoryId = Guid.Parse("ed937cce-c11d-4aa1-a503-49bd5075ad23"), Name = "SelfCare", Description = "SelfCare task to improve yourself", Importance = 20});
     modelBuilder.Entity<Category>(category =>
     {
       category.ToTable("Category");
@@ -23,7 +26,12 @@ public class TaskContext: DbContext
       category.Property(p => p.Name).IsRequired().HasMaxLength(150);
       category.Property(p=> p.Description).IsRequired(false);
       category.Property(p => p.Importance);
+      category.HasData(categoriesInit);
     });
+
+    List<Task> tasksInit = new List<Task>();
+    tasksInit.Add(new Task() {TaskId = Guid.Parse("87be8727-3d2e-45e7-b686-0049301f1ba9"), CategoryId = Guid.Parse("9472d245-d46c-4b17-9f4a-f3870d674b72"), Title = "Wash the Dishes", TaskPriority = Priority.Medium, StartDate = DateTime.Now});
+    tasksInit.Add(new Task() {TaskId = Guid.Parse("a26e416a-7a3c-4caf-8613-45df7daf0908"), CategoryId = Guid.Parse("ed937cce-c11d-4aa1-a503-49bd5075ad23"), Title = "Meditate", TaskPriority = Priority.Medium, StartDate = DateTime.Now});
 
     modelBuilder.Entity<Task>(task =>
     {
@@ -36,6 +44,7 @@ public class TaskContext: DbContext
       task.Property(p => p.StartDate);
       task.Property(p => p.EndDate);
       task.Ignore(p => p.Summary);
+      task.HasData(tasksInit);
     });
     modelBuilder.Entity<Goal>(goal => 
     {
