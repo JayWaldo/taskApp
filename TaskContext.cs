@@ -9,25 +9,13 @@ public class TaskContext: DbContext
   public DbSet<Category> Categories { get; set; }
   public DbSet<Task> Tasks { get; set; }
   public DbSet<Goal> Objectives { get; set; }
+  public DbSet<User> Users { get; set; }
+  public DbSet<UserTask> UserTasks { get; set; }
 
   public TaskContext(DbContextOptions<TaskContext> options) :base(options) { }
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
-    List<Category> categoryInit =  new List<Category>();
-    categoryInit.Add(new Category()
-    { 
-      CategoryId = Guid.Parse("b1015608-7eae-4273-98a4-f244270062ab"), 
-      Name = "SelfCare",
-      Importance = 20
-    });
-    categoryInit.Add(new Category()
-    { 
-      CategoryId = Guid.Parse("b1015608-7eae-4273-98a4-f24427006210"), 
-      Name = "Home",
-      Importance = 15
-    });
-
     modelBuilder.Entity<Category>(category =>
     {
       category.ToTable("Category");
@@ -35,39 +23,19 @@ public class TaskContext: DbContext
       category.Property(p => p.Name).IsRequired().HasMaxLength(150);
       category.Property(p=> p.Description).IsRequired(false);
       category.Property(p => p.Importance);
-      category.HasData(categoryInit);
-    });
-
-    List<Task> taskInit = new List<Task>();
-    taskInit.Add(new Task()
-    {
-      TaskId = Guid.Parse("b1015608-7eae-4273-98a4-f24427006211"),
-      CategoryId = Guid.Parse("b1015608-7eae-4273-98a4-f244270062ab"),
-      TaskPriority = Priority.Medium,
-      Title = "Sleep 8 hrs",
-      StartDate = DateTime.Now
-    });
-    taskInit.Add(new Task()
-    {
-      TaskId = Guid.Parse("b1015608-7eae-4273-98a4-f24427006212"),
-      CategoryId = Guid.Parse("b1015608-7eae-4273-98a4-f24427006210"),
-      TaskPriority = Priority.Medium,
-      Title = "Wash the dishes",
-      StartDate = DateTime.Now
     });
 
     modelBuilder.Entity<Task>(task =>
     {
       task.ToTable("Task");
       task.HasKey(p => p.TaskId);
-      task.HasOne(p => p.Category).WithMany( p => p.Tasks).HasForeignKey( p => p.CategoryId);
+      task.HasOne(p => p.Category).WithMany(p => p.Tasks).HasForeignKey( p => p.CategoryId).OnDelete(DeleteBehavior.NoAction);
       task.Property(p => p.Title).IsRequired().HasMaxLength(100);
       task.Property(p => p.Description).IsRequired(false).HasMaxLength(250);
       task.Property(p => p.TaskPriority).IsRequired();
       task.Property(p => p.StartDate);
       task.Property(p => p.EndDate);
       task.Ignore(p => p.Summary);
-      task.HasData(taskInit);
     });
     modelBuilder.Entity<Goal>(goal => 
     {
@@ -78,5 +46,26 @@ public class TaskContext: DbContext
       goal.Property(p => p.Done);
       goal.Property(p => p.Priority);
     });
+
+    modelBuilder.Entity<User>(user =>
+    {
+      user.ToTable("User");
+      user.HasKey(p => p.UserId);
+      user.Property(p => p.FirstName).IsRequired();
+      user.Property(p => p.LastName).IsRequired();
+      user.Property(p => p.Email).IsRequired();
+      user.Property(p => p.Password).IsRequired();
+    });
+
+    modelBuilder.Entity<UserTask>().HasKey(ut => new { ut.UserId, ut.CategoryId});
+    modelBuilder.Entity<UserTask>()
+      .HasOne(ut => ut.User)
+      .WithMany(u => u.UserTasks)
+      .HasForeignKey(ut => ut.UserId).OnDelete(DeleteBehavior.NoAction);
+    
+    modelBuilder.Entity<UserTask>()
+      .HasOne(ut => ut.Categories)
+      .WithMany(t => t.UserTasks)
+      .HasForeignKey(ut => ut.CategoryId).OnDelete(DeleteBehavior.NoAction);
   }
 }
