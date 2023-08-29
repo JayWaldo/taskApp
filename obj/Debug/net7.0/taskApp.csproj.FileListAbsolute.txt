@@ -64,3 +64,8 @@ C:\Users\JARED\Desktop\cSharp\taskApp\obj\Debug\net7.0\refint\taskApp.dll
 C:\Users\JARED\Desktop\cSharp\taskApp\obj\Debug\net7.0\taskApp.pdb
 C:\Users\JARED\Desktop\cSharp\taskApp\obj\Debug\net7.0\taskApp.genruntimeconfig.cache
 C:\Users\JARED\Desktop\cSharp\taskApp\obj\Debug\net7.0\ref\taskApp.dll
+C:\Users\JARED\Desktop\cSharp\taskApp\bin\Debug\net7.0\Humanizer.dll
+C:\Users\JARED\Desktop\cSharp\taskApp\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\JARED\Desktop\cSharp\taskApp\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\JARED\Desktop\cSharp\taskApp\bin\Debug\net7.0\Mono.TextTemplating.dll
+C:\Users\JARED\Desktop\cSharp\taskApp\bin\Debug\net7.0\System.CodeDom.dll

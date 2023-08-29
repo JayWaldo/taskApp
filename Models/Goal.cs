@@ -3,16 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace taskApp.Models;
 
-public class Objective
+public class Goal
 {
-  [Key]
-  public Guid ObjetiveId { get; set; }
-
-  [ForeignKey("TaskId")]
+  public Guid GoalId { get; set; }
   public Guid TaskId { get; set; }
-
-  [Required]
-  [MaxLength(150)]
+  public virtual Task Task { get; set; }
   public string Description { get; set; }
   public bool Done { get; set; } = false;
   public Priority Priority { get; set; }
