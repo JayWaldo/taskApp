@@ -11,7 +11,7 @@ public class Task
   public DateTime StartDate { get; set; }
   public DateTime EndDate { get; set; }
   public virtual Category Category { get; set; }
-  public virtual List<Goal> Goals { get; set; }
+  public virtual ICollection<Goal> Goals { get; set; }
   public string Summary { get; set; }
 }
 

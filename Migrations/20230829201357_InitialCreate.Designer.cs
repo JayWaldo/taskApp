@@ -12,8 +12,8 @@ using taskApp;
 namespace taskApp.Migrations
 {
     [DbContext(typeof(TaskContext))]
-    [Migration("20230829001742_InitialData")]
-    partial class InitialData
+    [Migration("20230829201357_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,23 +42,12 @@ namespace taskApp.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<Guid>("TaskId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("CategoryId");
 
                     b.ToTable("Category", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            CategoryId = new Guid("b1015608-7eae-4273-98a4-f244270062ab"),
-                            Importance = 20,
-                            Name = "SelfCare"
-                        },
-                        new
-                        {
-                            CategoryId = new Guid("b1015608-7eae-4273-98a4-f24427006210"),
-                            Importance = 15,
-                            Name = "Home"
-                        });
                 });
 
             modelBuilder.Entity("taskApp.Models.Goal", b =>
@@ -120,26 +109,48 @@ namespace taskApp.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Task", (string)null);
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            TaskId = new Guid("b1015608-7eae-4273-98a4-f24427006211"),
-                            CategoryId = new Guid("b1015608-7eae-4273-98a4-f244270062ab"),
-                            EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartDate = new DateTime(2023, 8, 28, 18, 17, 41, 848, DateTimeKind.Local).AddTicks(8141),
-                            TaskPriority = 1,
-                            Title = "Sleep 8 hrs"
-                        },
-                        new
-                        {
-                            TaskId = new Guid("b1015608-7eae-4273-98a4-f24427006212"),
-                            CategoryId = new Guid("b1015608-7eae-4273-98a4-f24427006210"),
-                            EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartDate = new DateTime(2023, 8, 28, 18, 17, 41, 848, DateTimeKind.Local).AddTicks(8181),
-                            TaskPriority = 1,
-                            Title = "Wash the dishes"
-                        });
+            modelBuilder.Entity("taskApp.Models.User", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("User", (string)null);
+                });
+
+            modelBuilder.Entity("taskApp.Models.UserTask", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("UserTasks");
                 });
 
             modelBuilder.Entity("taskApp.Models.Goal", b =>
@@ -158,20 +169,46 @@ namespace taskApp.Migrations
                     b.HasOne("taskApp.Models.Category", "Category")
                         .WithMany("Tasks")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("taskApp.Models.UserTask", b =>
+                {
+                    b.HasOne("taskApp.Models.Category", "Categories")
+                        .WithMany("UserTasks")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("taskApp.Models.User", "User")
+                        .WithMany("UserTasks")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Categories");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("taskApp.Models.Category", b =>
                 {
                     b.Navigation("Tasks");
+
+                    b.Navigation("UserTasks");
                 });
 
             modelBuilder.Entity("taskApp.Models.Task", b =>
                 {
                     b.Navigation("Goals");
+                });
+
+            modelBuilder.Entity("taskApp.Models.User", b =>
+                {
+                    b.Navigation("UserTasks");
                 });
 #pragma warning restore 612, 618
         }
