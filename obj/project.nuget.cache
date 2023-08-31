@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mS9kjA4XvuQw/ehdWBrtLNtHADTAO4+r8w0N0BEYgkWUqeSgdzbR8xmey0O2La/D/rU6ml8R5Bbz2enD89aVKw==",
+  "dgSpecHash": "Dno43dLVoaUmue3dVBMbJKNzWMMaPrt4M1c2iFFggpY2ov6Ct12X1I1iANLvRlRqNS2rnfUYrq9SkKsObp5QUA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\JARED\\Desktop\\cSharp\\taskApp\\taskApp.csproj",
+  "projectFilePath": "c:\\Users\\JARED\\Desktop\\cSharp\\taskApp\\taskApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\JARED\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\JARED\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
